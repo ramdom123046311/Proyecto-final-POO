@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Expedientes - MedicalCenter{% endblock %}
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/expedientes.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0"><i class="fas fa-file-medical me-2"></i>Administración de Expedientes</h2>
+</div>
+
+<!-- Barra de búsqueda -->
+<div class="d-flex mb-4">
+    <div class="input-group medical-search">
+        <span class="input-group-text"><i class="fas fa-search"></i></span>
+        <input type="text" class="form-control" id="searchExpedienteInput" placeholder="Buscar expediente...">
+    </div>
+</div>
+
+<!-- Tabla -->
+<div class="card medical-card-list">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="fas fa-folder-open me-2"></i>Lista de Expedientes</h5>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table medical-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Paciente</th>
+                        <th>Diagnóstico</th>
+                        <th>Fecha</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for expediente in expedientes %}
+                    <tr>
+                        <td>EXP-{{ expediente.id }}</td>
+                        <td>{{ expediente.paciente_nombre }}</td>
+                        <td>{{ expediente.diagnostico|truncate(80) }}</td>
+                        <td>{{ expediente.fecha_creacion.strftime('%d/%m/%Y') }}</td>
+                        <td>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted py-4">
+                            <i class="fas fa-folder-open fa-3x mb-3 text-secondary"></i>
+                            <h5>No hay expedientes registrados</h5>
+                            <p>Comienza creando un nuevo expediente</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- JS búsqueda -->
+<script>
+    document.getElementById('searchExpedienteInput').addEventListener('input', function () {
+        const value = this.value.toLowerCase();
+        document.querySelectorAll('.medical-table tbody tr').forEach(row => {
+            const text = row.textContent.toLowerCase();
+            row.style.display = text.includes(value) ? '' : 'none';
+        });
+    });
+</script>
+{% endblock %}
