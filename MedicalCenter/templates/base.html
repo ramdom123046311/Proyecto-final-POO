@@ -31,7 +31,7 @@
                             <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Perfil</a></li>
                             <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Configuración</a></li>
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Cerrar sesión</a></li>
                         </ul>
                     </div>
                 </div>
@@ -44,10 +44,10 @@
                 <!-- Sidebar -->
                 <div class="col-md-3 col-lg-2 medical-sidebar">
                     <ul class="nav flex-column">
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('citas') }}"><i class="fas fa-calendar-check me-2"></i>Citas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('pacientes') }}"><i class="fas fa-user-injured me-2"></i>Pacientes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('medicos') }}"><i class="fas fa-user-md me-2"></i>Médicos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ url_for('expedientes') }}"><i class="fas fa-file-medical me-2"></i>Expedientes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ url_for('cita.citas') }}"><i class="fas fa-calendar-check me-2"></i>Citas</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('paciente.pacientes') }}"><i class="fas fa-user-injured me-2"></i>Pacientes</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('medico.medicos') }}"><i class="fas fa-user-md me-2"></i>Médicos</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ url_for('expediente.expedientes') }}"><i class="fas fa-file-medical me-2"></i>Expedientes</a></li>
                     </ul>
                 </div>
 

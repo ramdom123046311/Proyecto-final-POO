@@ -27,7 +27,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="mb-0">Gestión de Exploraciones Médicas</h2>
             <div class="d-flex">
-                <a href="{{ url_for('citas') }}" class="btn btn-outline-primary">
+                <a href="{{ url_for('cita.citas') }}" class="btn btn-outline-primary">
                     <i class="fas fa-arrow-left me-1"></i> Volver a Citas
                 </a>
             </div>
@@ -69,15 +69,15 @@
                                     <td>{{ exp.fecha.strftime('%d/%m/%Y') }}</td>
                                     <td class="text-center">
                                         <div class="btn-action-group">
-                                            <a href="{{ url_for('ver_exploracion', id_exploracion=exp.id_exploracion) }}" 
+                                            <a href="{{ url_for('exploracion.ver_exploracion', exploracion_id=exp.id_exploracion) }}" 
                                                class="btn btn-sm btn-outline-primary">
                                                 <i class="fas fa-eye"></i>
                                             </a>
-                                            <a href="{{ url_for('editar_exploracion', id_exploracion=exp.id_exploracion) }}" 
+                                            <a href="{{ url_for('exploracion.editar_exploracion', exploracion_id=exp.id_exploracion) }}" 
                                                class="btn btn-sm btn-outline-info">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ url_for('eliminar_exploracion', id_exploracion=exp.id_exploracion) }}" method="post" class="d-inline">
+                                            <form action="{{ url_for('exploracion.eliminar_exploracion', exploracion_id=exp.id_exploracion) }}" method="post" class="d-inline">
                                                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                                 <button type="submit" class="btn btn-sm btn-outline-danger">
                                                     <i class="fas fa-trash-alt"></i>

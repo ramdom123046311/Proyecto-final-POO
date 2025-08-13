@@ -38,22 +38,22 @@
             <div class="col-md-3 col-lg-2 medical-sidebar">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('citas') }}">
+                        <a class="nav-link" href="{{ url_for('cita.citas') }}">
                             <i class="fas fa-calendar-check me-2"></i>Citas
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('pacientes') }}">
+                        <a class="nav-link" href="{{ url_for('paciente.pacientes') }}">
                             <i class="fas fa-user-injured me-2"></i>Pacientes
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('medicos') }}">
+                        <a class="nav-link" href="{{ url_for('medico.medicos') }}">
                             <i class="fas fa-user-md me-2"></i>Médicos
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('expedientes' ) }}">
+                        <a class="nav-link" href="{{ url_for('expediente.expedientes' ) }}">
                             <i class="fas fa-file-medical me-2"></i>Expedientes
                         </a>
                     </li>
@@ -96,7 +96,7 @@
                                         <td>{{ paciente.nombres }} {{ paciente.apellidos }}</td>
                                         <td>{{ paciente.fecha_nacimiento|calcular_edad }} años</td>
                                         <td>
-                                            <a href="{{ url_for('ver_paciente', id_paciente=paciente.id_paciente) }}" class="btn btn-sm btn-medical">
+                                            <a href="{{ url_for('paciente.ver_paciente', paciente_id=paciente.id_paciente) }}" class="btn btn-sm btn-medical">
                                             <i class="fas fa-eye me-1"></i> Ver
                                             </a>
                                             <button class="btn btn-sm btn-outline-medical" data-bs-toggle="modal" data-bs-target="#editarPacienteModal{{ paciente.id_paciente }}">
@@ -110,7 +110,7 @@
                                     <!-- Modal Editar Paciente -->
                                     <div class="modal fade" id="editarPacienteModal{{ paciente.id_paciente }}" tabindex="-1" aria-labelledby="editarPacienteLabel{{ paciente.id_paciente }}" aria-hidden="true">
                                         <div class="modal-dialog modal-lg">
-                                            <form method="POST" action="{{ url_for('pacientes') }}">
+                                            <form method="POST" action="{{ url_for('paciente.pacientes') }}">
                                                 <div class="modal-content">
                                                     <div class="modal-header medical-modal-header">
                                                         <h5 class="modal-title"><i class="fas fa-edit me-2"></i>Editar Paciente</h5>
@@ -124,22 +124,22 @@
                                                         <div class="row">
                                                             <div class="col-md-6 mb-3">
                                                                 <label class="form-label">Nombre(s)</label>
-                                                                <input type="text" class="form-control" name="nombres" value="{{ paciente.nombres }}" required>
+                                                                <input type="text" class="form-control" name="nombres" value="{{ paciente.nombres }}">
                                                             </div>
                                                             <div class="col-md-6 mb-3">
                                                                 <label class="form-label">Apellidos</label>
-                                                                <input type="text" class="form-control" name="apellidos" value="{{ paciente.apellidos }}" required>
+                                                                <input type="text" class="form-control" name="apellidos" value="{{ paciente.apellidos }}">
                                                             </div>
                                                         </div>
 
                                                         <div class="row">
                                                             <div class="col-md-6 mb-3">
                                                                 <label class="form-label">Fecha de nacimiento</label>
-                                                                <input type="date" class="form-control" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento|formato_fecha_input }}" required>
+                                                                <input type="date" class="form-control" name="fecha_nacimiento" value="{{ paciente.fecha_nacimiento|formato_fecha_input }}" max="{{ ''|fecha_hoy }}">
                                                             </div>
                                                             <div class="col-md-6 mb-3">
                                                                 <label class="form-label">Género</label>
-                                                                <select class="form-select" name="genero" required>
+                                                                <select class="form-select" name="genero">
                                                                     <option value="Masculino" {% if paciente.genero == 'Masculino' %}selected{% endif %}>Masculino</option>
                                                                     <option value="Femenino" {% if paciente.genero == 'Femenino' %}selected{% endif %}>Femenino</option>
                                                                     <option value="Otro" {% if paciente.genero == 'Otro' %}selected{% endif %}>Otro</option>
@@ -149,7 +149,7 @@
 
                                                         <div class="mb-3">
                                                             <label class="form-label">Tipo de sangre</label>
-                                                            <select class="form-select" name="tipo_sangre" required>
+                                                            <select class="form-select" name="tipo_sangre">
                                                                 {% for tipo in ['Desconocido', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'] %}
                                                                 <option value="{{ tipo }}" {% if paciente.tipo_sangre == tipo %}selected{% endif %}>{{ tipo }}</option>
                                                                 {% endfor %}
@@ -173,7 +173,7 @@
                                     <!-- Modal Confirmar Eliminar -->
                                     <div class="modal fade" id="confirmarEliminarModal{{ paciente.id_paciente }}" tabindex="-1" aria-labelledby="confirmarEliminarModalLabel{{ paciente.id_paciente }}" aria-hidden="true">
                                         <div class="modal-dialog">
-                                            <form method="POST" action="{{ url_for('pacientes') }}">
+                                            <form method="POST" action="{{ url_for('paciente.pacientes') }}">
                                                 <div class="modal-content">
                                                     <div class="modal-header medical-modal-header">
                                                         <h5 class="modal-title"><i class="fas fa-exclamation-triangle me-2"></i>Confirmar Eliminación</h5>
@@ -214,7 +214,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
 
-      <form action="{{ url_for('pacientes') }}" method="POST">
+      <form action="{{ url_for('paciente.pacientes') }}" method="POST">
         <input type="hidden" name="action" value="create">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
@@ -243,7 +243,7 @@
             <div class="col-md-6 mb-3">
               <label class="form-label">Fecha de nacimiento</label>
               <input type="date" class="form-control" name="fecha_nacimiento"
-                     value="{{ form_data.fecha_nacimiento if form_data else '' }}">
+                     value="{{ form_data.fecha_nacimiento if form_data else '' }}" max="{{ ''|fecha_hoy }}">
               {% if errores and errores.fecha_nacimiento %}
                 <small class="text-danger">{{ errores.fecha_nacimiento }}</small>
               {% endif %}
